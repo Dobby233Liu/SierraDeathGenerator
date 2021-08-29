@@ -209,7 +209,7 @@ class Snippet{
 				x-= char['unadvance-after'][lastchar]
 			}
 			context.drawImage(this.font.image,char.x,char.y,char.w,char.h,x*scale,y*scale + char['vertical-shift'],char.w*scale,char.h*scale)
-			x+=(char.w - char.unadvance)
+			x+=(char.w - 1 - char.unadvance)
 			last = char.unadvance
 			lastchar = char.char
 		}
