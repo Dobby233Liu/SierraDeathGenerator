@@ -805,8 +805,13 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 		outputSize.h = eval(fontInfo['dynamic-size'].h)
 	}
 	var buffer = 10
-	var browserScale = Math.fround($(window).width() / (outputSize.w + buffer))
-        alert(browserScale)
+
+        function makeABetterScaleFactor(number){
+		if (number % 1 < 0.5) return number + (0.5 - number % 1)
+		return Math.round((number * 10) - (number * 10 % 2)) / 10
+        }
+
+	var browserScale = makeABetterScaleFactor($(window).width() / (outputSize.w + buffer))
 
 	var fontScale = first(fontInfo.scale, 2);
 
@@ -818,9 +823,11 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 
 	context.canvas.width = outputSize.w * scale
 	context.canvas.height = outputSize.h * scale
-	var scaleMode = first(fontInfo['scale-mode'],'auto')
-	if(scaleMode == 'nearest-neighbor' || (scaleMode == 'auto' && scale == 2.0)){
+	var scaleMode = first(fontInfo['scale-mode'], 'auto')
+	if(scaleMode == 'nearest-neighbor' || (scaleMode == 'auto' && (scale % 1 == 0))){
 		context.imageSmoothingEnabled = false
+        } else {
+		context.imageSmoothingEnabled = true
 	}
 
 	function drawOverlays(stage){
