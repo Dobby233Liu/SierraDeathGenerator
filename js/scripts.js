@@ -208,7 +208,7 @@ class Snippet{
 			if(lastchar in char['unadvance-after']){
 				x-= char['unadvance-after'][lastchar]
 			}
-			context.drawImage(this.font.image,char.x,char.y,char.w-1,char.h,x*scale,y*scale + char['vertical-shift'],char.w*scale,char.h*scale)
+			context.drawImage(this.font.image,char.x,char.y,char.w,char.h,x*scale,y*scale + char['vertical-shift'],char.w*scale,char.h*scale)
 			x+=(char.w - char.unadvance)
 			last = char.unadvance
 			lastchar = char.char
@@ -270,7 +270,7 @@ class Snippet{
 			out.push({
 				'x': x,
 				'y': first(info.y, ligature_default.y, defaultInfo.y, fontOriginY),
-				'w': first(info.w, ligature_default.w, defaultInfo.w),
+				'w': first(info.w, ligature_default.w, defaultInfo.w) - 1,
 				'h': first(info.h, ligature_default.h, defaultInfo.h),
 				'unadvance': first(lig_unadvance, ligature_default.unadvance, info.unadvance, defaultInfo.unadvance, 0),
 				'unadvance-after': first(info['unadvance-after'],ligature_default['unadvance-after'], {}),
