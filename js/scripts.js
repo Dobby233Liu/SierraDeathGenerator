@@ -10,7 +10,9 @@ var glitch = false
 
 // Fix scaling bugs
 function weirdNumbersFix(n){
-	return Math.trunc(n)
+	if (n % 1 == 0) return n
+	else if (n % 1 < 0.5) return Math.trunc(n) + 1
+	return Math.trunc(n) - 1
 }
 
 function applyHashChange(){
