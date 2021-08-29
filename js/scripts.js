@@ -881,7 +881,7 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 		}
 		buildBorder(fontImage,fontInfo,bw,bh,border_sides)
 		var bordercanvas = document.querySelector('canvas#border')
-		context.drawImage(bordercanvas,0,0,bw,bh,Math.ceil(order_x*scale),Math.ceil(border_y*scale),Math.ceil(bw*scale), Math.ceil(bh*scale))
+		context.drawImage(bordercanvas,0,0,bw,bh,Math.ceil(border_x*scale),Math.ceil(border_y*scale),Math.ceil(bw*scale), Math.ceil(bh*scale))
 	}
 
 	if('hooks' in fontInfo && 'pre-overlays' in fontInfo['hooks']){
