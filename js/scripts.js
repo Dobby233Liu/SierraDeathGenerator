@@ -271,7 +271,7 @@ class Snippet{
 				'x': x,
 				'y': first(info.y, ligature_default.y, defaultInfo.y, fontOriginY),
 				'w': first(info.w, ligature_default.w, defaultInfo.w) - 1,
-				'h': first(info.h, ligature_default.h, defaultInfo.h),
+				'h': first(info.h, ligature_default.h, defaultInfo.h) - 1,
 				'unadvance': first(lig_unadvance, ligature_default.unadvance, info.unadvance, defaultInfo.unadvance, 0),
 				'unadvance-after': first(info['unadvance-after'],ligature_default['unadvance-after'], {}),
 				'vertical-shift': first(info['vertical-shift'], ligature_default['vertical-shift'], 0),
@@ -660,7 +660,7 @@ function parseOverlays(fontInfo){
 				overlays[oname] = {
 					"name":sname,
 					"type":"select",
-					"x":currentOverlay.x-1,
+					"x":currentOverlay.x+1,
 					"y":currentOverlay.y,
 					"w":adv.w-1,
 					"h":adv.h,
