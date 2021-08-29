@@ -663,7 +663,7 @@ function parseOverlays(fontInfo){
 					"x":currentOverlay.x+1,
 					"y":currentOverlay.y,
 					"w":adv.w-1,
-					"h":adv.h,
+					"h":adv.h-1,
 					"blend":first(currentOverlay['blend-mode'], 'source-over'),
 					"stage":first(currentOverlay.stage, "pre-text"),
 					"title":first(currentOverlay.title,sname),
