@@ -818,9 +818,9 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 	if(!scaled){
 		scale = fontScale
 	} else {
-    	var browserScale = $(window).width() / (outputSize.w + buffer)
-            //browserScale = Math.min(weirdNumbersFix(browserScale), Math.floor(browserScale), Math.round(browserScale))
-    	scale = Math.min(browserScale, fontScale)
+		var browserScale = $(window).width() / (outputSize.w + buffer)
+		browserScale = Math.floor(browserScale * 10) / 10
+		scale = Math.min(browserScale, fontScale)
 	}
 
 	context.canvas.width = weirdNumbersFix(outputSize.w * scale)
