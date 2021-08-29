@@ -816,7 +816,7 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 	context.canvas.width = outputSize.w * scale
 	context.canvas.height = outputSize.h * scale
 	var scaleMode = first(fontInfo['scale-mode'],'auto')
-	context.imageSmoothingEnabled = (scaleMode == 'nearest-neighbor' || (scaleMode == 'auto' && (scale % 1 == 0)))
+	context.imageSmoothingEnabled = false
 
 	function drawOverlays(stage){
 		Object.keys(overlays).forEach(function (key) {
