@@ -349,7 +349,6 @@ class FontManager{
 	}
 
 	wordwrap(maxwidth){
-
 		function splitLine(line){
 			var parts = line.split(maxwidth)
 			if(parts.length==2){
@@ -804,9 +803,9 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 		outputSize.w = eval(fontInfo['dynamic-size'].w)
 		outputSize.h = eval(fontInfo['dynamic-size'].h)
 	}
-	var buffer = 10
 
-	var browserScale = $(window).width() / (outputSize.w + buffer)
+	var browserScale = $(window).width() / outputSize.w
+        browserScale = browserScale - (browserScale % 0.25)
 	var fontScale = first(fontInfo.scale, 2);
 	var scale = Math.min(browserScale, fontScale)
 	if(!scaled){
