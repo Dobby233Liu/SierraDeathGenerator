@@ -1,5 +1,6 @@
 var canvas = document.querySelector('canvas#death')
 var context = canvas.getContext('2d')
+context.imageSmoothingEnabled = false
 var baseImage = null
 var fontImage = null
 var fontInfo = null
