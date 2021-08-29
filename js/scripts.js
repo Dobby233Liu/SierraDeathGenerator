@@ -9,7 +9,11 @@ var selectedGenerator = null
 var glitch = false
 
 // Fix scaling bugs
-var weirdNumbersFix = Math.round
+function weirdNumbersFix(n){
+	if (n % 1 == 0) return n
+	else if (n % 1 < 0.5) return Math.round(n)
+	return Math.ceil(n)
+}
 
 function applyHashChange(){
 	selectedGenerator = window.location.hash.substr(1)
