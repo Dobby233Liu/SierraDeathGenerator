@@ -754,7 +754,7 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 			fonts[key] = new BitmapFont(fontcopy, fontImage)
 		}
 	}
-	var originx = first(fontInfo.origin.x - 1, 0)
+	var originx = first(fontInfo.origin.x, 0)
 
 	var overlays = parseOverlays(fontInfo)
 
