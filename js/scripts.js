@@ -807,7 +807,10 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 	var buffer = 10
 
         function makeABetterScaleFactor(number){
-		if (Math.ceil(number) > number) return Math.ceil(number) - 0.5
+		if (Math.ceil(number) > number) {
+                    alert(1)
+                    return Math.ceil(number) - 0.5
+                }
 		return Math.round(number)
         }
 
