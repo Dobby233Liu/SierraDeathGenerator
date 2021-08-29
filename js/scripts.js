@@ -207,7 +207,7 @@ class Snippet{
 			if(lastchar in char['unadvance-after']){
 				x-= char['unadvance-after'][lastchar]
 			}
-			context.drawImage(this.font.image,char.x,char.y,char.w,char.h,x*scale,y*scale + char['vertical-shift'],char.w*scale,char.h*scale)
+			context.drawImage(this.font.image,char.x,char.y,char.w,char.h,Math.ceil(x*scale),Math.ceil(y*scale) + char['vertical-shift'],Math.ceil(char.w*scale),Math.ceil(char.h*scale))
 			x+=(char.w - char.unadvance)
 			last = char.unadvance
 			lastchar = char.char
@@ -807,15 +807,15 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 
 	var buffer = 10
 	var browserScale = $(window).width() / (outputSize.w + buffer)
-        browserScale = Math.min(Math.ceil(browserScale), Math.floor(browserScale), Math.round(browserScale))
+        //browserScale = Math.min(Math.ceil(browserScale), Math.floor(browserScale), Math.round(browserScale))
 	var fontScale = first(fontInfo.scale, 2);
 	var scale = Math.min(browserScale, fontScale)
 	if(!scaled){
 		scale = fontScale
 	}
 
-	context.canvas.width = outputSize.w * scale
-	context.canvas.height = outputSize.h * scale
+	context.canvas.width = Math.ceil(outputSize.w * scale)
+	context.canvas.height = Math.ceil(outputSize.h * scale)
 	var scaleMode = first(fontInfo['scale-mode'], 'auto')
 	if(scaleMode == 'nearest-neighbor' || (scaleMode == 'auto' && (scale % 1 == 0))){
 		context.imageSmoothingEnabled = false
@@ -828,8 +828,8 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 			var adv = overlays[key]
 			if(adv.stage == stage){
 				context.globalCompositeOperation = adv.blend
-				var overlay_x = adv.x*scale, overlay_y = adv.y*scale;
-				var overlay_w = adv.w*scale, overlay_h = adv.h*scale
+				var overlay_x = Math.ceil(adv.x*scale), overlay_y = Math.ceil(adv.y*scale)
+				var overlay_w = Math.ceil(adv.w*scale), overlay_h = Math.ceil(adv.h*scale)
 				var source_x = adv.source.x, source_y = adv.source.y
 				var source_w = adv.w, source_h = adv.h
 				var source_image = fontImage
@@ -866,7 +866,7 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 
 	// Clear before drawing, as transparents might get overdrawn
 	context.clearRect(0, 0, canvas.width, canvas.height)
-	context.drawImage(baseImage, 0, 0, baseImage.width*scale, baseImage.height*scale)
+	context.drawImage(baseImage, 0, 0, Math.ceil(baseImage.width*scale), Math.ceil(baseImage.height*scale))
 
 	drawOverlays('pre-border')
 
@@ -881,7 +881,7 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 		}
 		buildBorder(fontImage,fontInfo,bw,bh,border_sides)
 		var bordercanvas = document.querySelector('canvas#border')
-		context.drawImage(bordercanvas,0,0,bw,bh,border_x*scale,border_y*scale,bw*scale, bh*scale)
+		context.drawImage(bordercanvas,0,0,bw,bh,Math.ceil(order_x*scale),Math.ceil(border_y*scale),Math.ceil(bw*scale), Math.ceil(bh*scale))
 	}
 
 	if('hooks' in fontInfo && 'pre-overlays' in fontInfo['hooks']){
