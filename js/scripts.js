@@ -287,13 +287,13 @@ class Snippet{
 		var lastchar = -1
 		for(var char of this.parse()){
 			last = char.unadvance
-			w += char.w - 1 - char.unadvance
+			w += char.w - char.unadvance
 			if(lastchar in char['unadvance-after']){
 				w-= char['unadvance-after'][lastchar]
 			}
 			lastchar = char.char
 		}
-		return w + last
+		return w + last - 1
 	}
 
 	getHeight(firstLine){
