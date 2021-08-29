@@ -806,7 +806,7 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 	}
 	var buffer = 10
 
-	var browserScale = Math.ceil($(window).width() / (outputSize.w + buffer))
+	var browserScale = Math.floor($(window).width() / (outputSize.w + buffer))
 	var fontScale = first(fontInfo.scale, 2);
 	var scale = Math.min(browserScale, fontScale)
 	if(!scaled){
