@@ -13,7 +13,7 @@ function weirdNumbersFix(n){
 	if (n % 1 == 0) return n
 	n = Math.trunc(n)
 	if (n % 2 != 0) return n + 1
-	return n
+	return n - 1
 }
 
 function applyHashChange(){
