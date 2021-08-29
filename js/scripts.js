@@ -10,6 +10,7 @@ var glitch = false
 
 // Fix scaling bugs
 function weirdNumbersFix(n){
+	alert(n)
 	if (n % 1 == 0) return n
 	return Math.ceil(n) - 1
 }
