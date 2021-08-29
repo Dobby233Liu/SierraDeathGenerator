@@ -805,7 +805,7 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 		outputSize.h = eval(fontInfo['dynamic-size'].h)
 	}
 	var buffer = 10
-	var browserScale = Math.round($(window).width() / (outputSize.w + buffer))
+	var browserScale = Math.ceil($(window).width() / (outputSize.w + buffer))
 
 	var fontScale = first(fontInfo.scale, 2);
 
