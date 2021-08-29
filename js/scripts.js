@@ -8,14 +8,6 @@ var overlayOverrides = null
 var selectedGenerator = null
 var glitch = false
 
-// Fix scaling bugs
-function weirdNumbersFix(n){
-	if (n % 1 == 0) return n
-	n = Math.trunc(n)
-	if (n % 2 != 0) return n + 1
-	return n - 1
-}
-
 function applyHashChange(){
 	selectedGenerator = window.location.hash.substr(1)
 	if(selectedGenerator.startsWith('-')){
@@ -215,7 +207,7 @@ class Snippet{
 			if(lastchar in char['unadvance-after']){
 				x-= char['unadvance-after'][lastchar]
 			}
-			context.drawImage(this.font.image,char.x,char.y,char.w,char.h,weirdNumbersFix(x*scale),weirdNumbersFix((y*scale) + char['vertical-shift']),weirdNumbersFix(char.w*scale),weirdNumbersFix(char.h*scale))
+			context.drawImage(this.font.image,char.x,char.y,char.w,char.h,x*scale,y*scale + char['vertical-shift'],char.w*scale,char.h*scale)
 			x+=(char.w - char.unadvance)
 			last = char.unadvance
 			lastchar = char.char
@@ -812,34 +804,27 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 		outputSize.w = eval(fontInfo['dynamic-size'].w)
 		outputSize.h = eval(fontInfo['dynamic-size'].h)
 	}
-
 	var buffer = 10
-	var scale = 1
+
+	var browserScale = Math.ceil($(window).width() / (outputSize.w + buffer))
 	var fontScale = first(fontInfo.scale, 2);
+	var scale = Math.min(browserScale, fontScale)
 	if(!scaled){
 		scale = fontScale
-	} else {
-		var browserScale = $(window).width() / (outputSize.w + buffer)
-		browserScale = Math.floor(browserScale * 10) / 10
-		scale = Math.min(browserScale, fontScale)
 	}
 
-	context.canvas.width = weirdNumbersFix(outputSize.w * scale)
-	context.canvas.height = weirdNumbersFix(outputSize.h * scale)
-	var scaleMode = first(fontInfo['scale-mode'], 'auto')
-	if(scaleMode == 'nearest-neighbor' || (scaleMode == 'auto' && (scale % 1 == 0))){
-		context.imageSmoothingEnabled = false
-	} else {
-		context.imageSmoothingEnabled = true
-	}
+	context.canvas.width = outputSize.w * scale
+	context.canvas.height = outputSize.h * scale
+	var scaleMode = first(fontInfo['scale-mode'],'auto')
+	context.imageSmoothingEnabled = (scaleMode == 'nearest-neighbor' || (scaleMode == 'auto' && scale % 1 == 0))
 
 	function drawOverlays(stage){
 		Object.keys(overlays).forEach(function (key) {
 			var adv = overlays[key]
 			if(adv.stage == stage){
 				context.globalCompositeOperation = adv.blend
-				var overlay_x = weirdNumbersFix(adv.x*scale), overlay_y = weirdNumbersFix(adv.y*scale)
-				var overlay_w = weirdNumbersFix(adv.w*scale), overlay_h = weirdNumbersFix(adv.h*scale)
+				var overlay_x = adv.x*scale, overlay_y = adv.y*scale;
+				var overlay_w = adv.w*scale, overlay_h = adv.h*scale
 				var source_x = adv.source.x, source_y = adv.source.y
 				var source_w = adv.w, source_h = adv.h
 				var source_image = fontImage
@@ -876,7 +861,7 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 
 	// Clear before drawing, as transparents might get overdrawn
 	context.clearRect(0, 0, canvas.width, canvas.height)
-	context.drawImage(baseImage, 0, 0, weirdNumbersFix(baseImage.width*scale), weirdNumbersFix(baseImage.height*scale))
+	context.drawImage(baseImage, 0, 0, baseImage.width*scale, baseImage.height*scale)
 
 	drawOverlays('pre-border')
 
@@ -891,7 +876,7 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 		}
 		buildBorder(fontImage,fontInfo,bw,bh,border_sides)
 		var bordercanvas = document.querySelector('canvas#border')
-		context.drawImage(bordercanvas,0,0,bw,bh,weirdNumbersFix(border_x*scale),weirdNumbersFix(border_y*scale),weirdNumbersFix(bw*scale), weirdNumbersFix(bh*scale))
+		context.drawImage(bordercanvas,0,0,bw,bh,border_x*scale,border_y*scale,bw*scale, bh*scale)
 	}
 
 	if('hooks' in fontInfo && 'pre-overlays' in fontInfo['hooks']){
