@@ -805,22 +805,20 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 		outputSize.h = eval(fontInfo['dynamic-size'].h)
 	}
 	var buffer = 10
+
 	var browserScale = $(window).width() / (outputSize.w + buffer)
-
 	var fontScale = first(fontInfo.scale, 2);
-
 	var scale = Math.min(browserScale, fontScale)
 	if(!scaled){
 		scale = fontScale
 	}
 
-
 	context.canvas.width = outputSize.w * scale
 	context.canvas.height = outputSize.h * scale
-	var scaleMode = first(fontInfo['scale-mode'],'auto')
-	if(scaleMode == 'nearest-neighbor' || (scaleMode == 'auto' && scale == 2.0)){
-		context.imageSmoothingEnabled = false
-	}
+	//var scaleMode = first(fontInfo['scale-mode'],'auto')
+	//if(scaleMode == 'nearest-neighbor' || (scaleMode == 'auto' && scale == 2.0)){
+	context.imageSmoothingEnabled = false
+	//}
 
 	function drawOverlays(stage){
 		Object.keys(overlays).forEach(function (key) {
