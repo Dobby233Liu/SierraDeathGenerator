@@ -754,7 +754,7 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 			fonts[key] = new BitmapFont(fontcopy, fontImage)
 		}
 	}
-	var originx = first(fontInfo.origin.x, 0)
+	var originx = first(fontInfo.origin.x - 1, 0)
 
 	var overlays = parseOverlays(fontInfo)
 
@@ -805,7 +805,7 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 		outputSize.h = eval(fontInfo['dynamic-size'].h)
 	}
 	var buffer = 10
-	var browserScale = $(window).width() / (outputSize.w + buffer)
+	var browserScale = Math.floor($(window).width() / (outputSize.w + buffer))
 
 	var fontScale = first(fontInfo.scale, 2);
 
