@@ -207,7 +207,7 @@ class Snippet{
 			if(lastchar in char['unadvance-after']){
 				x-= char['unadvance-after'][lastchar]
 			}
-			context.drawImage(this.font.image,char.x,char.y,char.w,char.h,Math.ceil(x*scale),Math.ceil(y*scale) + char['vertical-shift'],Math.ceil(char.w*scale),Math.ceil(char.h*scale))
+			context.drawImage(this.font.image,char.x,char.y,char.w,char.h,Math.ceil(x*scale),Math.ceil((y*scale) + char['vertical-shift']),Math.ceil(char.w*scale),Math.ceil(char.h*scale))
 			x+=(char.w - char.unadvance)
 			last = char.unadvance
 			lastchar = char.char
