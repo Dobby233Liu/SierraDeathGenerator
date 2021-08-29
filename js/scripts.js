@@ -660,7 +660,7 @@ function parseOverlays(fontInfo){
 				overlays[oname] = {
 					"name":sname,
 					"type":"select",
-					"x":currentOverlay.x+1,
+					"x":currentOverlay.x,
 					"y":currentOverlay.y,
 					"w":adv.w-1,
 					"h":adv.h-1,
