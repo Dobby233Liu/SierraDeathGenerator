@@ -807,8 +807,8 @@ function renderText(scaled = true, wordwrap_dryrun=false){
 	var buffer = 10
 
         function makeABetterScaleFactor(number){
-		if (number % 1 < 0.5) return number + (0.5 - number % 1)
-		return Math.round((number * 10) - (number * 10 % 2)) / 10
+		if (Math.ceil(number) > number) return Math.ceil(number) - 0.5
+		return number
         }
 
 	var browserScale = makeABetterScaleFactor($(window).width() / (outputSize.w + buffer))
