@@ -209,7 +209,7 @@ class Snippet{
 				x-= char['unadvance-after'][lastchar]
 			}
 			context.drawImage(this.font.image,char.x,char.y,char.w,char.h,x*scale,y*scale + char['vertical-shift'],char.w*scale,char.h*scale)
-			x+=(char.w - 1 - char.unadvance)
+			x+=(char.w - char.unadvance)
 			last = char.unadvance
 			lastchar = char.char
 		}
@@ -287,7 +287,7 @@ class Snippet{
 		var lastchar = -1
 		for(var char of this.parse()){
 			last = char.unadvance
-			w += char.w - char.unadvance
+			w += char.w - 1 - char.unadvance
 			if(lastchar in char['unadvance-after']){
 				w-= char['unadvance-after'][lastchar]
 			}
